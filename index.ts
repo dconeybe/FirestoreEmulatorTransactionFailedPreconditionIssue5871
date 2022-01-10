@@ -10,11 +10,11 @@ setLogLevel('debug');
 const firestore = getFirestore();
 connectFirestoreEmulator(firestore, 'localhost', 8080);
 
-const docRef = doc(collection(firestore, 'foo'));
+const docRef = doc(firestore, 'repl-words', 'foo');
 
 runTransaction(firestore, (transaction): Promise<any> => {
   return transaction.get(docRef)
     .then((snapshot) => {
-      transaction.update(docRef, {'foo': 42});
+      transaction.set(docRef, {'foo': 42});
     });
 });
